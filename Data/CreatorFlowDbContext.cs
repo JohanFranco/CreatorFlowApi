@@ -6,7 +6,7 @@ namespace CreatorFlowApi.Data
     public class CreatorFlowDbContext: DbContext
     {
 
-        public CreatorFlowDbContext(DbContextOptions<CreatorFlowDbContext> options) : base()
+        public CreatorFlowDbContext(DbContextOptions<CreatorFlowDbContext> options) : base(options)
         {
             
         }
