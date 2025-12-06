@@ -4,25 +4,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CreatorFlowApi.Repositories.Users
 {
-    public class UserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         private readonly CreatorFlowDbContext _context;
 
-        public UserRepository(CreatorFlowDbContext context)
+        public UserRepository(CreatorFlowDbContext context) : base(context)
         {
             _context = context;
         }
 
         public async Task<User?> GetByEmailAsync(string email)
-        {
-            return await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == email);
-        }
+            => await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 
         public async Task<User?> GetByUsernameAsync(string username)
-        {
-            return await _context.Users
-                .FirstOrDefaultAsync(u => u.Username == username);
-        }
+            => await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
     }
 }
