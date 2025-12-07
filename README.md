@@ -111,7 +111,7 @@ cd creatorflow-api
 
 ### 3️⃣ Configure appsettings.json
 
-```bash
+```json
 {
   "ConnectionStrings": {
     "DefaultConnection": "Server=localhost;Database=CreatorFlowDb;Trusted_Connection=True;TrustServerCertificate=True;"
