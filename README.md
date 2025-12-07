@@ -105,7 +105,7 @@ CreatorFlowApi/
 ### 2️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/your-username/creatorflow-api.git
+git clone https://github.com/JohanFranco/creatorflow-api.git
 cd creatorflow-api
 ```
 
