@@ -40,6 +40,7 @@ Perfect for building a strong backend portfolio piece.
 
 Simplified structure:
 
+```bash
 CreatorFlowApi/
 ├─ Controllers/
 │ ├─ AuthController.cs
@@ -81,7 +82,7 @@ CreatorFlowApi/
 │ └─ Stats/
 │
 └─ Program.cs
-
+```
 
 ### Architecture Highlights
 
@@ -110,6 +111,7 @@ cd creatorflow-api
 
 ### 3️⃣ Configure appsettings.json
 
+```bash
 {
   "ConnectionStrings": {
     "DefaultConnection": "Server=localhost;Database=CreatorFlowDb;Trusted_Connection=True;TrustServerCertificate=True;"
@@ -121,7 +123,7 @@ cd creatorflow-api
     "ExpiresInMinutes": 60
   }
 }
-
+```
 
 ### 4️⃣ Apply database migrations
 
