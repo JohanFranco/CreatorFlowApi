@@ -2,7 +2,8 @@
 using CreatorFlowApi.DTOs;
 using CreatorFlowApi.DTOs.Contents;
 using CreatorFlowApi.Entities;
-using CreatorFlowApi.Repositories;
+using CreatorFlowApi.Repositories.Contents;
+using CreatorFlowApi.Repositories.Projects;
 using CreatorFlowApi.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +15,13 @@ namespace CreatorFlowApi.Controllers
     [Authorize]
     public class ContentController : ControllerBase
     {
-        private readonly IRepository<ContentItem> _contentRepo;
-        private readonly IRepository<Project> _projectRepo;
+        private readonly IContentItemRepository _contentRepo;
+        private readonly IProjectRepository _projectRepo;
         private readonly IMapper _mapper;
 
         public ContentController(
-            IRepository<ContentItem> contentRepo,
-            IRepository<Project> projectRepo,
+            IContentItemRepository contentRepo,
+            IProjectRepository projectRepo,
             IMapper mapper)
         {
             _contentRepo = contentRepo;
@@ -47,36 +48,13 @@ namespace CreatorFlowApi.Controllers
             return Ok(result);
         }
 
-        [HttpPatch("{id:int}/status")]
-        public async Task<IActionResult> UpdateStatus(int id, UpdateContentStatusDto dto)
-        {
-            var userId = User.GetUserId();
-            var content = await _contentRepo.GetByIdAsync(id);
-            if (content == null) return NotFound();
-
-            var project = await _projectRepo.GetByIdAsync(content.ProjectId);
-            if (project == null || project.UserId != userId)
-                return NotFound();
-
-            content.Status = dto.Status;
-            _contentRepo.Update(content);
-            await _contentRepo.SaveChangesAsync();
-
-            return NoContent();
-        }
-
         [HttpGet("schedule")]
         public async Task<ActionResult<IEnumerable<ContentItemDto>>> GetSchedule(
             [FromQuery] DateTime from,
             [FromQuery] DateTime to)
         {
             var userId = User.GetUserId();
-
-            var items = await _contentRepo.FindAsync(ci =>
-                ci.PlannedDate >= from &&
-                ci.PlannedDate <= to &&
-                ci.Project.UserId == userId);
-
+            var items = await _contentRepo.GetScheduleAsync(userId, from, to);
             var dto = _mapper.Map<IEnumerable<ContentItemDto>>(items);
             return Ok(dto);
         }

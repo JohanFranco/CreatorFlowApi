@@ -1,4 +1,5 @@
-﻿using CreatorFlowApi.Entities;
+﻿using CreatorFlowApi.DTOs.Contents;
+using CreatorFlowApi.Entities;
 
 namespace CreatorFlowApi.DTOs.Projects
 {
@@ -11,7 +12,7 @@ namespace CreatorFlowApi.DTOs.Projects
         public string? Description { get; set; }
         public string Platform { get; set; } = "YouTube"; // Twitch, TikTok, etc.
         public bool IsActive { get; set; } = true;
-        public List<ContentItem> ContentItems { get; set; } = new();
+        public List<ContentItemDto> ContentItems { get; set; } = new();
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
     }
