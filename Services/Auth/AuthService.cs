@@ -79,6 +79,7 @@ namespace CreatorFlowApi.Services.Auth
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("username", user.Username)
             };
@@ -93,5 +94,6 @@ namespace CreatorFlowApi.Services.Auth
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
     }
 }
